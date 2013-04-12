@@ -24,7 +24,7 @@
 	/**
 	 * Create a new DOM element
 	 * @param {Object} Specify the element type and attributes
-   * @return {HTMLElement} Inserts the new element into the DOM and returns an HTMLElement Object
+	 * @return {HTMLElement} Inserts the new element into the DOM and returns an HTMLElement Object
 	*/
 	_createElement = function(elementType, attr) {
 		var newEl = document.createElement(elementType);
