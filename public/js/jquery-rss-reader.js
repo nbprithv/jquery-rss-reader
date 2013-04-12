@@ -142,17 +142,15 @@
 	_clickTitle = function(e){
 		var t = $(e.target);
 		if(t.hasClass('jq-rss-title') && !t.hasClass('jq-rss-section-active')){
-			//$('.jq-rss-content').css('display','none');
 			$('.jq-rss-content').slideUp("slow");
 			$('.jq-rss-title').removeClass('jq-rss-section-active');
 			var sectionDiv = t.closest(".jq-rss-section");
 			sectionDiv.find('.jq-rss-content').slideDown("slow");
 			t.addClass('jq-rss-section-active');
 		}else if(t.hasClass('jq-rss-title') && t.hasClass('jq-rss-section-active')){
-			$('.jq-rss-content').slideUp("slow");//css('display','none');
-			$('.jq-rss-title').addClass('jq-rss-section-active');
+			$('.jq-rss-content').slideUp("slow");
+			$('.jq-rss-title').removeClass('jq-rss-section-active');
 			var sectionDiv = t.closest(".jq-rss-section");
-			//sectionDiv.find('.jq-rss-content').css('display','none');
 			sectionDiv.find('.jq-rss-content').slideUp("slow");
 			t.removeClass('jq-rss-section-active');
 		}
