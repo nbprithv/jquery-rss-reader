@@ -170,6 +170,7 @@ $.fn.rssReader = function(config){
 		if(config.url){
 			_utils.putCSS();
 			_utils.getContent(_utils.buildHTML);
+			$('#'+config.target).unbind('click');
 			$('#'+config.target).click(_utils.clickTitle);
 		}
 	}
