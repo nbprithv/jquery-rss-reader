@@ -3,25 +3,13 @@
  *
  * @module $().rssReader({feedlink:"http://feeds.huffingtonpost.com/huffingtonpost/raw_feed",target:"feeds",height:"400px",width:"600px"});
  */
-(function($){
+var $ = jQuery;
+$.fn.rssReader = function(config){
 	
-	$.fn.rssReader = function(config){
-		if(!config.url && !config.target && $('#'+config.target).length === 0){
-			console.log('The RSS Feed URL or target div is missing');
-			return -1;
-		}
-		_config = config;
-		if(_config.url){
-			_utils.putCSS();
-			_utils.getContent(_utils.buildHTML);
-			$('#'+_config.target).click(_utils.clickTitle);
-		}
-	};
 	/**
 	 * Private Variables 
 	*/
-	var _config = {},
-	HEIGHT = "100%",
+	var HEIGHT = "100%",
 	WIDTH = "100%",
 
 	_utils = {
@@ -60,7 +48,7 @@
 		*/
 		getContent : function(cb){
 			$.ajax({
-				url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q='+_config.url,
+				url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q='+config.url,
 				dataType: 'json',
 				success: function(data) {
 					cb(data);
@@ -79,7 +67,7 @@
 				entriesHTML.push(_utils.getSectionHTML(entries[i].title,entries[i].content,i));
 			}
 			_utils.addOptionalStyles();
-			$('#'+_config.target).html(entriesHTML.join(''));	
+			$('#'+config.target).html(entriesHTML.join(''));	
 		},
 
 		/**
@@ -87,13 +75,13 @@
 		 * @param {Object} JSON data of the RSS feed content
 		*/
 		addOptionalStyles : function(){
-			if(_config.height && _config.width){
-				HEIGHT = _config.height;
-				WIDTH = _config.width;
-				$('#'+_config.target).css('overflow','auto');
+			if(config.height && config.width){
+				HEIGHT = config.height;
+				WIDTH = config.width;
+				$('#'+config.target).css('overflow','auto');
 			}
-			$('#'+_config.target).css('height',HEIGHT);
-			$('#'+_config.target).css('width',WIDTH);
+			$('#'+config.target).css('height',HEIGHT);
+			$('#'+config.target).css('width',WIDTH);
 		},
 
 		/**
@@ -174,4 +162,25 @@
 			}
 		}
 	};
-})(jQuery);
+
+	if((!config.url && !config.target) || $('#'+config.target).length === 0){
+		console.log('The RSS Feed URL or target div is missing');
+		return -1;
+	}else{
+		if(config.url){
+			_utils.putCSS();
+			_utils.getContent(_utils.buildHTML);
+			$('#'+config.target).click(_utils.clickTitle);
+		}
+	}
+
+	/**
+	 * Exposing some functions for testing purposes.
+   * Doesn't cause any harm if these functions are exposed.
+	*/
+	return {
+		sectionHTML : _utils.getSectionHTML,
+		titleHTML : _utils.getTitleHTML,
+		contentHTML : _utils.getContentHTML 
+	};
+};
