@@ -119,7 +119,7 @@
 		*/
 		getTitleHTML : function(title,index){
 			var h = [];
-			h.push("<h3><a class='jq-rss-title' href='#"+index+"'>");
+			h.push("<h3><a class='jq-rss-title' href='#article-"+index+"'>");
 			h.push(title);
 			h.push("</a></h3>");	
 			return h.join('');
