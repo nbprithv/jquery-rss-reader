@@ -1,0 +1,28 @@
+.container{
+	width:1024px;
+}
+.container .left-col{
+	float:left;
+	width:700px;
+	padding-left:10px;
+}
+.container .right-col{
+	float:right;
+	margin-top:20px;	
+	padding:4px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	height:100%;
+	width:304px;
+}
+.container .right-col input{
+	width:200px;
+}
+.container:after{
+	content:".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}

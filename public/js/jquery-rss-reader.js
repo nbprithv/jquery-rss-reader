@@ -68,6 +68,7 @@ $.fn.rssReader = function(config){
 			}
 			_utils.addOptionalStyles();
 			$('#'+config.target).html(entriesHTML.join(''));	
+			$('#'+config.summarytarget).html(_utils.buildSummaryHTML(data.responseData.feed));
 		},
 
 		/**
@@ -125,6 +126,29 @@ $.fn.rssReader = function(config){
 			h.push("</div>");
 			return h.join('');
 		},
+		
+		/**
+		 * Meta data of the feed information
+		 * Adds HTML to the left column.
+		*/
+	
+		buildSummaryHTML : function(data){
+			var h = [];
+			h.push("<div class='jq-rss-summary'>");
+			h.push("<div class='jq-rss-summary-title'>");
+			h.push(data.title);
+			h.push("</div>");
+			h.push("<div class='jq-rss-summary-link'><a href='"+data.link+"'>Feed Link");
+			h.push("</a></div>");
+			h.push("<div class='jq-rss-summary-author'>");
+			h.push(data.author);
+			h.push("</div>");
+			h.push("<div class='jq-rss-summary-description'>");
+			h.push(data.description);
+			h.push("</div>");
+			h.push("</div>");
+			return h.join('');
+		},
 
 		/**
 		 * Some CSS for the each article
@@ -136,6 +160,8 @@ $.fn.rssReader = function(config){
 			css.push('.jq-rss-title{text-decuration:none;color:#000000;font-size:16px;}');
 			css.push('.jq-rss-title:hover{color:#0769AD;text-decoration:none;}');	
 			css.push('.jq-rss-section:after{content:".";display:block;height:0;clear:both;visibility:hidden;}');
+			css.push(".jq-rss-summary div{float:left; border:1px solid #ddd; padding:2px;font-size:16px;width:100px;height:100px;margin:10px;word-wrap:break-word;}");
+			css.push('.jq-rss-summary:after{content:".";display:block;height:0;clear:both;visibility:hidden;}');
 			_utils.createElement('style',{
 				text:css.join(''),
 				parent:document.getElementsByTagName("head")[0]
